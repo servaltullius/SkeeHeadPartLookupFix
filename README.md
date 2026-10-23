@@ -8,7 +8,8 @@ update.
 ## The problem
 
 When RaceMenu applies **sculpt** data (the face sculpt brush) to a character, it looks up each face
-mesh's head part by name. The lookup walks **every head part in the game**, and on each step it
+mesh's head part by name. The lookup walks the game's head part list **from the start, one by one**,
+until it finds a match (or reaches the end when there is none), and on each step it
 creates and releases an engine string (`BSFixedString`). Each create/release locks the engine's
 global string pool.
 

@@ -3,7 +3,7 @@
 영문 배포 설명은 `README.md`. 이 문서는 구현 세부와 작업 기록.
 
 RaceMenu(skee64.dll)는 얼굴을 다시 만들 때 스컬프트를 적용한다(`Actor::DoReset3D` → `TESNPC::UpdateMorphs` 후킹 →
-`FaceMorphInterface::ApplyMorphs`). 이때 얼굴 메쉬마다 `GetHeadPartByName()`으로 **모든 헤드파트를 순회하면서, 매 반복
+`FaceMorphInterface::ApplyMorphs`). 이때 얼굴 메쉬마다 `GetHeadPartByName()`으로 **헤드파트 목록을 처음부터 순회하면서(일치할 때까지, 없으면 끝까지), 매 반복
 BSFixedString 을 생성/해제**한다. 이 플러그인은 그 비용을 없앤다.
 
 - 헤드파트 36,775개 + 스컬프트 부위 15개 기준으로 얼굴 한 번에 생성/해제 약 44만 쌍이었다.
