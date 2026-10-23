@@ -1,0 +1,87 @@
+[center][size=6][b]Skee HeadPart Lookup Fix[/b][/size]
+[size=3]Removes a slow head part lookup in RaceMenu that causes stutter when a sculpted face is rebuilt.[/size][/center]
+
+[line]
+
+[size=5][b]What is this?[/b][/size]
+
+When RaceMenu applies [b]sculpt[/b] data (the face sculpt brush) to a character, it looks up each face mesh's head part by name. That lookup walks [b]every head part in the game[/b], and on each step it creates and releases an engine string. Each create/release locks the engine's global string pool.
+
+[list]
+[*]Cost per face rebuild ≈ (sculpted face meshes) × (head parts in your load order).
+[*]In my load order (~36,800 head parts, a sculpted UBE character with 15 face meshes), [b]one rebuild meant about 440,000 string-pool create/release pairs[/b]. The player's face is rebuilt several times right after a save loads, which showed up as a burst of 80–120 ms hitches in the first seconds.
+[*]With a typical head part count (a few thousand) the cost is smaller, but it is still paid on every rebuild.
+[/list]
+
+This plugin builds a [b]name → head part table[/b] once at startup and answers the lookup from it. The result is exactly the same as the original: the first match, compared case-insensitively. RaceMenu's own code still applies the sculpt. Nothing in your saves or presets changes.
+
+When the table cannot give an exact answer (not built yet, head part list changed, or a name with non-ASCII characters), the original full scan runs instead.
+
+[size=5][b]Who benefits?[/b][/size]
+
+[list]
+[*]You use RaceMenu and your character (or any NPC) has [b]sculpt[/b] edits.
+[*]You have [b]a lot of head parts[/b]: hair packs, brows, eyes, UBE / race mods, NPC overhauls. The more you have, the bigger the gain.
+[/list]
+
+It does [b]not[/b] raise average FPS. It removes the hitches that face rebuilds cause: after loading a save, when a character's 3D is reloaded, or when mods request a face/body update.
+
+[size=5][b]Supported RaceMenu builds[/b][/size]
+
+[list]
+[*][b]RaceMenu 0.4.20.0 (Steam)[/b], AE 1.6.1170: sculpt lookup + GetHeadPartByName. [color=#6aa84f]Tested in game.[/color]
+[*][b]RaceMenu 0.4.20.0 (GOG)[/b], AE GOG: sculpt lookup + GetHeadPartByName.
+[*][b]RaceMenu 0.4.19.16[/b], AE 1.6.1170: sculpt lookup + GetHeadPartByName.
+[*][b]RaceMenu 0.4.16[/b], SE 1.5.97: GetHeadPartByName (on this build the sculpt code calls it, so all 5 callers get faster).
+[/list]
+
+GOG 0.4.20.0, 0.4.19.16 and SE 0.4.16 support was checked against the original DLLs (build identification, every instruction the patch relies on, and no branches into the patched bytes), but [b]has not been tested in game yet[/b]. Reports with the log file are very welcome.
+
+[b]Safety check.[/b] The plugin recognises the exact skee64.dll build, then checks every instruction it relies on: 18 locations on AE, 9 on SE. If anything differs, [b]it does not patch[/b] and writes the reason to its log. That covers an unknown build, an edited or recompiled skee64.dll, or another plugin having changed the same code. Without a patch, RaceMenu just runs as it always did.
+
+[b]Not supported:[/b] RaceMenu VR, edited or recompiled skee64.dll builds, and RaceMenu builds not listed above (including future builds for newer game versions).
+
+[size=5][b]Requirements[/b][/size]
+
+[list]
+[*][url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]SKSE64[/url] for your game version
+[*][url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]
+[*][url=https://www.nexusmods.com/skyrimspecialedition/mods/19080]RaceMenu[/url], one of the builds above
+[/list]
+
+[size=5][b]Installation[/b][/size]
+
+Install with your mod manager. Load order does not matter.
+Safe to add or remove at any time: it changes nothing in saves.
+
+[size=5][b]Compatibility[/b][/size]
+
+[list]
+[*]Tested together with [url=https://www.nexusmods.com/skyrimspecialedition/mods/138586]RaceMenu OverlayFix and Various Mod Fixes[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/173617]Racemenu(SKEE) cosave Load Crash Fix[/url].
+[*]If another plugin changes the same code first, this plugin steps aside. The byte check fails and the log says which address differed.
+[/list]
+
+[size=5][b]Log[/b][/size]
+
+[i]Documents\My Games\Skyrim Special Edition\SKSE\SkeeHeadPartLookupFix.log[/i]
+
+[code]RaceMenu 0.4.20.0 (AE, Steam): patched skee64+BDDF4 (sculpt head part lookup) -> ...
+RaceMenu 0.4.20.0 (AE, Steam): patched skee64+582C0 (GetHeadPartByName) -> ...
+Lookup cache built: 36775 head parts, 36775 named, 33086 unique names (...)
+[this load, first 30 s] head part lookups: 75 from the cache, 0 not found, 0 used the original scan; ~2179590 string-pool create/release pairs avoided[/code]
+
+The last line counts one save load. If you see [b]not patching[/b], the line gives the reason. Please attach the whole log when reporting a problem.
+
+[size=5][b]Known limitations[/b][/size]
+
+[list]
+[*]On AE builds, three more copies of the same lookup are inlined in code that did not show up in profiling (they look like preset handling). Those keep the original scan.
+[*]Only helps when a sculpted face is rebuilt. Other hitches have other causes.
+[/list]
+
+[size=5][b]Credits[/b][/size]
+
+[list]
+[*][b]Expired[/b] for RaceMenu. This plugin only speeds up one lookup; everything else is RaceMenu.
+[*]CommonLibSSE-NG.
+[/list]

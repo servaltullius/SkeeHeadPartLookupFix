@@ -1,0 +1,7 @@
+{
+  "name": "skee-headpart-lookup-fix",
+  "version-string": "2.1.0",
+  "dependencies": [
+    "commonlibsse-ng"
+  ]
+}

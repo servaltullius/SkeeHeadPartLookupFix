@@ -1,0 +1,9 @@
+# build output lives outside the repo (G:\skyrim-build\...), but keep local tool folders out too
+build/
+out/
+vcpkg_installed/
+.vs/
+.vscode/
+.idea/
+CMakeUserPresets.json
+*.user
