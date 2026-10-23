@@ -89,3 +89,33 @@ The last line counts one save load. If you see [b]not patching[/b], the line giv
 [size=5][b]Source code[/b][/size]
 
 MIT licensed: [url=https://github.com/servaltullius/SkeeHeadPartLookupFix]github.com/servaltullius/SkeeHeadPartLookupFix[/url]
+
+[line]
+
+[spoiler=한국어 설명]
+[size=4][b]무슨 모드인가요?[/b][/size]
+레이스메뉴(RaceMenu)는 [b]스컬프트[/b](얼굴 조각) 데이터를 적용할 때 얼굴 메쉬마다 헤드파트를 이름으로 찾습니다. 이때 [b]게임의 모든 헤드파트[/b]를 하나씩 돌면서, 매번 엔진 문자열을 만들었다가 지웁니다.
+
+헤드파트가 많은 모드팩일수록 얼굴을 다시 만들 때마다 끊김이 생깁니다. 세이브 로드 직후나 캐릭터 3D가 다시 로드될 때가 대표적입니다. 제작자 모드팩(헤드파트 약 36,800개) 기준으로 얼굴 한 번에 약 44만 번이었습니다.
+
+이 플러그인은 시작할 때 [b]이름 → 헤드파트 표[/b]를 한 번 만들고, 그 표에서 바로 찾습니다. 결과는 원래와 똑같습니다(첫 번째 일치, 대소문자 무시). 스컬프트 적용은 레이스메뉴가 그대로 하고, 세이브나 프리셋은 아무것도 바뀌지 않습니다.
+
+[size=4][b]지원 버전[/b][/size]
+[list]
+[*]레이스메뉴 0.4.20.0 (Steam), AE 1.6.1170: [color=#6aa84f]게임에서 확인함[/color]
+[*]레이스메뉴 0.4.20.0 (GOG)
+[*]레이스메뉴 0.4.19.16, AE 1.6.1170
+[*]레이스메뉴 0.4.16, SE 1.5.97
+[/list]
+Steam 외 버전은 원본 DLL과 대조해서 확인했지만, 아직 게임에서는 테스트하지 못했습니다. 로그와 함께 제보해 주시면 감사하겠습니다.
+
+skee64.dll 빌드와 고칠 코드가 예상과 하나라도 다르면 [b]패치하지 않고[/b] 이유를 로그에 남깁니다. 이때는 레이스메뉴가 원래대로 동작합니다.
+
+[size=4][b]요구 사항 / 설치[/b][/size]
+SKSE64, Address Library for SKSE Plugins, 레이스메뉴(위 버전 중 하나)가 필요합니다. 모드 관리자로 설치하면 되고, 로드 순서는 상관없습니다. 세이브에 남는 게 없어서 언제든 넣거나 뺄 수 있습니다.
+
+[size=4][b]로그[/b][/size]
+위치는 [i]문서\My Games\Skyrim Special Edition\SKSE\SkeeHeadPartLookupFix.log[/i]입니다. [b]patched[/b] 줄이 있으면 적용된 것이고, [b]not patching[/b] 줄이 있으면 적용되지 않은 이유가 함께 적혀 있습니다.
+
+평균 FPS를 올리는 모드는 아닙니다. 스컬프트한 얼굴을 다시 만들 때 생기는 끊김만 없애 줍니다.
+[/spoiler]
