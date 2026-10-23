@@ -83,7 +83,7 @@ Removes a slow head part lookup in RaceMenu (skee64.dll) that causes stutter whe
 
 ## 9. 올리기 전 체크
 
-- [ ] zip 의 DLL 이 게임에서 확인한 빌드인가 (2026-10-23 14:02 빌드, 14:08 실행 확인)
+- [ ] zip 의 DLL 이 게임에서 확인한 빌드인가 (경로 정리 빌드 2026-10-23 14:26, 게임 확인 필요)
 - [ ] 설명 미리보기에서 BBCode 가 깨지지 않는가
 - [ ] 요구 사항 3개를 연결했는가
 - [ ] Permissions / Credits 에 Expired(RaceMenu) 가 들어갔는가
