@@ -55,6 +55,18 @@ Removes a slow head part lookup in RaceMenu (skee64.dll) that causes stutter whe
 - zip 은 `SKSE\Plugins\SkeeHeadPartLookupFix.dll` 구조라 MO2/Vortex 에서 바로 설치된다.
 - 소스 코드: 아래 7번 참고.
 
+## 5-1. 이미지 (Media)
+
+`nexus/images/` (1920x1080 PNG). 첫 번째를 대표 이미지(Primary)로 지정한다.
+
+| 파일 | 내용 |
+|---|---|
+| `01_main.png` | 타이틀 카드 (대표 이미지·썸네일용) |
+| `02_how_it_works.png` | 원리 비교: 얼굴 한 번에 생성/해제 ~44만 쌍 → 표 조회 15회 |
+| `03_log.png` | 실제 로그 화면 (패치 2곳, 75회 적중, 되돌아감 0회) |
+
+만든 스크립트: 세션 임시 폴더의 `make_nexus_images.py` (필요하면 저장소로 옮길 것).
+
 ## 6. 권한 (Permissions) — 본인이 정할 것
 
 흔한 선택은 다음과 같다.
