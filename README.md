@@ -104,6 +104,10 @@ The figures are for one save load (they restart when a save starts loading). A l
   RaceMenu's.
 - Built with CommonLibSSE-NG.
 
+## License
+
+MIT, see [LICENSE](LICENSE). Source: https://github.com/servaltullius/SkeeHeadPartLookupFix
+
 ## Building from source
 
 Requirements: Visual Studio 2022 and vcpkg with `commonlibsse-ng`. Run `build.cmd`. The output is

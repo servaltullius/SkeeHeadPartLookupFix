@@ -64,13 +64,11 @@ Removes a slow head part lookup in RaceMenu (skee64.dll) that causes stutter whe
 - Assets from others: **RaceMenu by Expired** 를 크레딧에 적는다.
   - 이 모드는 RaceMenu 파일을 포함하지도 수정하지도 않고, 실행 중 메모리만 바꾼다.
 
-## 7. 소스 코드 (선택)
+## 7. 소스 코드
 
-설명에서는 "source available" 문구를 뺐다. 공개 방법을 정하면 Credits 아래에 한 줄을 추가한다.
-- 바이너리 패치 DLL 은 소스를 공개하면 신뢰를 얻기 쉽다(OverlayFix, cosave Load Crash Fix 도 공개).
-- 방법은 둘 중 하나다.
-  - 소스 zip 을 Optional/Miscellaneous 파일로 올린다.
-  - GitHub 저장소 링크를 건다.
+- GitHub 공개 저장소: https://github.com/servaltullius/SkeeHeadPartLookupFix (MIT)
+- 설명(`description.bbcode`) 맨 끝 "Source code" 항목에 링크가 들어 있다.
+- 넥서스 Permissions 의 "Source" 칸에도 같은 주소를 적어 둔다.
 
 ## 8. 변경 기록 (Changelog)
 
